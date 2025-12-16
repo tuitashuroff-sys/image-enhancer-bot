@@ -1,6 +1,17 @@
 require('dotenv').config();
 const { Telegraf, Markup } = require('telegraf');
 const axios = require('axios');
+const http = require('http');
+
+// Render / Heroku requirement: Bind to a port
+const server = http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot is running!');
+});
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const hfToken = process.env.HF_ACCESS_TOKEN;
